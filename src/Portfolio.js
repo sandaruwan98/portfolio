@@ -7,6 +7,6 @@ export default function Portfolio() {
 
     // </Window>
 
-    <iframe width="1080px" height="710px" src="portfoliohtml/index.html" />
+    <iframe width="1120px" height="720px" src="portfoliohtml/index.html" />
   )
 }
