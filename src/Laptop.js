@@ -1,36 +1,49 @@
 import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Html, useGLTF } from '@react-three/drei'
+import { Html, useGLTF, Text } from '@react-three/drei'
 import Portfolio from './Portfolio'
 
 export default function Laptop(props) {
   const vec = new THREE.Vector3(props.x, props.y, props.z)
-  const vec1 = new THREE.Vector3(props.rx, props.ry, props.rz)
+  const vec1 = new THREE.Euler(props.rx, props.ry, props.rz)
 
   // const [zoomed, setZoomed] = useState(false)
   // const [floating, setFloating] = useState(true)
-  var zoomed = false
-  var floating = true
+
   const group = useRef()
   // Load model
   const { nodes, materials } = useGLTF('/mac-draco.glb')
+
+  var { zoomed, floating } = props
+
   const initialpos = new THREE.Vector3(0, -1, 0)
   const initialrotation = new THREE.Vector3(0.2, 0, 0)
-  // console.log(initialpos);
-  // console.log(initialrotation);
   const zoompos = new THREE.Vector3(-2.6, -0.75, 6)
   const zoomrotation = new THREE.Vector3(0.006, -0.6, -0.01)
-  // Make it float
+
+  const color = new THREE.Color()
+  const tcolor = new THREE.Color('#3b82f6')
+  const fontProps = { font: '/Inter-Bold.woff', fontSize: 1.6, letterSpacing: -0.05, lineHeight: 1, 'material-toneMapped': false }
+  const fontProps2 = { font: '/Inter-Bold.woff', fontSize: 1.3, letterSpacing: -0.05, lineHeight: 1, 'material-toneMapped': false }
+  const textpos = new THREE.Vector3(5, 4.5, 4.3)
+  const textpos2 = new THREE.Vector3(5, 2.8, 4.6)
+  const textrot = new THREE.Euler(0, -1.6, 0)
+  const textref = useRef()
+  const [hovered, setHovered] = useState(false)
+  const over = (e) => setHovered(true)
+  const out = () => setHovered(false)
+
   useFrame((state) => {
-    // group.current.position.lerp(vec, 0.1)
-    // group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, vec1.x, 0.1)
-    // group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, vec1.y, 0.1)
-    // group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, vec1.z, 0.1)
+    textref.current.material.color.lerp(color.set(hovered ? '#3b82f6' : 'white'), 0.1)
+    // textref.current.position.lerp(vec, 0.1)
+    // textref.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, vec1.x, 0.1)
+    // textref.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, vec1.y, 0.1)
+    // textref.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, vec1.z, 0.1)
 
     const t = state.clock.getElapsedTime()
-    // console.log(t)
     if (floating) {
+      // Make it float
       group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, Math.cos(t / 2) / 20 + 0.25, 0.1)
       group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, Math.sin(t / 4) / 20, 0.1)
       group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, Math.sin(t / 8) / 20, 0.1)
@@ -64,22 +77,28 @@ export default function Laptop(props) {
   })
 
   return (
-    <group
-      onClick={() => {
-        console.log('test')
-        if (zoomed == false && floating == true) {
-          floating = false
-          zoomed = true
-        } else if (zoomed == true) {
-          zoomed = false
-          setTimeout(() => {
-            floating = true
-          }, 700)
-        }
-      }}
-      ref={group}
-      {...props}
-      dispose={null}>
+    <group ref={group} {...props} dispose={null}>
+      <Text
+        color={tcolor}
+        position={textpos}
+        rotation={textrot}
+        onPointerOver={over}
+        onPointerOut={out}
+        {...fontProps}
+        children={'LAKSHAN'}
+      />
+
+      <Text
+        position={textpos2}
+        rotation={textrot}
+        ref={textref}
+        onPointerOver={over}
+        onPointerOut={out}
+        // onClick={() => console.log('clicked')}
+        {...fontProps2}
+        children={'JAYASINGHE'}
+      />
+
       <group rotation-x={-0.425} position={[0, -0.04, 0.41]}>
         <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh material={materials.aluminium} geometry={nodes['Cube008'].geometry} />
