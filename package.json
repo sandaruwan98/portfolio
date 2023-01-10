@@ -1,10 +1,10 @@
 {
-  "name": "mixing-html-and-webgl-w-occlusion",
+  "name": "lakshan-jayasinghe-portfolio",
   "version": "1.0.0",
-  "description": "Having HTML and WebGL in the same scene with the addition of occlusion.",
+  "description": "Lakshan Jayasinghe Portfolio",
   "keywords": [
-    "occlusion",
-    "drei",
+    "lakshan",
+    "portfolio",
     "html"
   ],
   "main": "src/index.js",
@@ -14,14 +14,11 @@
     "@react-three/drei": "9.40.4",
     "@react-three/fiber": "8.9.1",
     "react": "18.2.0",
-    "react-desktop": "^0.3.9",
     "react-dom": "18.2.0",
     "react-scripts": "5.0.1",
     "three": "0.146.0"
   },
-  "devDependencies": {
-    "html-loader": "^4.2.0"
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
