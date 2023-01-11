@@ -702,6 +702,7 @@ header .seperator-skew svg .fill-white {
 }
 
 .projects .project-row .project-left {
+  text-align: justify;
   width: 50%;
   margin-right: 2rem;
   display: flex;
@@ -711,12 +712,13 @@ header .seperator-skew svg .fill-white {
 
 .projects .project-row .project-right img {
   width: 100%;
-  border: 1px solid lightgray;
+  /* border: 2px solid #3b82f6; */
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px 2px #00000054;
 }
 
 .projects .project-row .project-right {
   width: 50%;
-
 }
 
 .projects .project-row .project-left h3 {
@@ -1021,7 +1023,7 @@ header .seperator-skew svg .fill-white {
 .contact .card-container .card {
   background: #fff;
   width: 260px;
-  margin: 20px;
+  margin: 10px;
   padding: 30px;
   display: flex;
   justify-content: center;
@@ -1196,3 +1198,14 @@ header .seperator-skew svg .fill-white {
   }
 }
 /*# sourceMappingURL=main.css.map */
+
+@media screen and (min-width: 0px) and (max-width: 720px) {
+  .card-column-image {
+    display: none;
+  }
+
+  .projects .project-row .project-right {
+    margin-top: 30px;
+  }
+  
+}
